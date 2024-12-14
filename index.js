@@ -21,7 +21,6 @@ require("dotenv").config();
 const init = async () => {
   const server = Hapi.server({
     port: process.env.PORT || 5002,
-    host: "localhost",
     query: {
       parser: (query) => Qs.parse(query),
     },
