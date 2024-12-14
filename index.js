@@ -7,6 +7,7 @@ const Vision = require("@hapi/vision");
 const HapiSwagger = require("hapi-swagger");
 
 const HammingCodeRoutes = require("./src/routes/hamming_code.routes");
+const EncryptMessageRoutes = require("./src/routes/encrypt_message.routes");
 
 const swaggerOptions = {
   info: {
@@ -50,6 +51,7 @@ const init = async () => {
   ]);
 
   HammingCodeRoutes.initializRoutes(server);
+  EncryptMessageRoutes.initializRoutes(server);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);

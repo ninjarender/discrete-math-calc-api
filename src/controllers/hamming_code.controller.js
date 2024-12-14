@@ -1,5 +1,3 @@
-const { esponseObject, ResponseToolkit, Request } = require("@hapi/hapi");
-
 class HammingCodeController {
   constructor() {
     this.encode = this.encode.bind(this);
