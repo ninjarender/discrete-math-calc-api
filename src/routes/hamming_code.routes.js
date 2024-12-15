@@ -30,9 +30,9 @@ class HammingCodeRoutes extends Routes {
       path: "/hamming/decode",
       handler: controller.decode,
       options: {
-        validate: {
-          payload: hammingCodeValidator
-        },
+        description: "Decode a hamming code",
+        tags: ["api"],
+        validate: { payload: hammingCodeValidator },
         response: {
           status: {
             200: hammingDecodeValidator,

@@ -6,15 +6,11 @@ class HammingCodeController {
 
   encode(request, h) {
     try {
-      console.log(request.payload);
       let [d0, d1, d2, d3] = request.payload.hamming_data.split("").map(num => parseInt(num));
-      console.log(d0, d1, d2, d3);
 
       let p0 = d0 ^ d1 ^ d3;
       let p1 = d1 ^ d2 ^ d3;
       let p2 = d0 ^ d2 ^ d3;
-
-      console.log(p0, p1, p2);
 
       return h.response({ hamming_code: `${p0}${p1}${d0}${p2}${d1}${d2}${d3}` }).code(200);
     } catch {
