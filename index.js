@@ -9,6 +9,7 @@ const HapiSwagger = require("hapi-swagger");
 const HammingCodeRoutes = require("./src/routes/hamming_code.routes");
 const EncryptMessageRoutes = require("./src/routes/encrypt_message.routes");
 const CalculateChecksumRoutes = require("./src/routes/calculate_checksum.routes");
+const CombinatoricsRoutes = require("./src/routes/combinatorics.routes");
 
 const swaggerOptions = {
   info: {
@@ -53,6 +54,7 @@ const init = async () => {
   HammingCodeRoutes.initializRoutes(server);
   EncryptMessageRoutes.initializRoutes(server);
   CalculateChecksumRoutes.initializRoutes(server);
+  CombinatoricsRoutes.initializRoutes(server);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);
