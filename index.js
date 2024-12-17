@@ -10,6 +10,7 @@ const HammingCodeRoutes = require("./src/routes/hamming_code.routes");
 const EncryptMessageRoutes = require("./src/routes/encrypt_message.routes");
 const CalculateChecksumRoutes = require("./src/routes/calculate_checksum.routes");
 const CombinatoricsRoutes = require("./src/routes/combinatorics.routes");
+const SetsRoutes = require("./src/routes/sets.routes");
 
 const swaggerOptions = {
   info: {
@@ -55,6 +56,7 @@ const init = async () => {
   EncryptMessageRoutes.initializRoutes(server);
   CalculateChecksumRoutes.initializRoutes(server);
   CombinatoricsRoutes.initializRoutes(server);
+  SetsRoutes.initializRoutes(server);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);
