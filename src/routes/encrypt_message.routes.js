@@ -2,7 +2,10 @@ const Routes = require("./routes");
 
 const EncryptMessageController = require("../controllers/encrypt_message.controller.js");
 
-const { encryptedMessageValidator, decryptedMessageValidator } = require("../validators/encrypt_message.validators.js");
+const {
+  encryptedMessageValidator,
+  decryptedMessageValidator,
+} = require("../validators/encrypt_message.validators.js");
 const { errorValidator } = require("../validators/static.validators.js");
 
 const controller = new EncryptMessageController();
