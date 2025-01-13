@@ -16,6 +16,8 @@ class solveLinearEquationsRoutes extends Routes {
       path: "/solve-linear-equations",
       handler: controller.handle,
       options: {
+        description: "Solve linear equations",
+        tags: ["api"],
         validate: {
           payload: solveLinearEquationsSchema,
         },
