@@ -12,6 +12,7 @@ const CalculateChecksumRoutes = require("./src/routes/calculate_checksum.routes"
 const CombinatoricsRoutes = require("./src/routes/combinatorics.routes");
 const SetsRoutes = require("./src/routes/sets.routes");
 const CalculateCacheMemoryParametersRoutes = require("./src/routes/calculate_cache_memory_parameters.routes");
+const SolveLinearEquationsRoutes = require("./src/routes/solve_linear_equations.routes");
 
 const swaggerOptions = {
   info: {
@@ -59,6 +60,7 @@ const init = async () => {
   CombinatoricsRoutes.initializRoutes(server);
   SetsRoutes.initializRoutes(server);
   CalculateCacheMemoryParametersRoutes.initializRoutes(server);
+  SolveLinearEquationsRoutes.initializRoutes(server);
 
   await server.start();
   console.log("Server running on %s", server.info.uri);
