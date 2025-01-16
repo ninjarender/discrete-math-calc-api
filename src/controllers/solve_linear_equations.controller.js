@@ -78,7 +78,12 @@ class SolveLinearEquationsController {
 
           if (term.match(/[a-zA-Z]+/)) {
             const parts = term.split(/([a-zA-Z]+)/);
-            const coefficient = parts[0] === "" ? "1" : parts[0];
+
+            if (parts[0] === "" || parts[0] === " ") {
+              parts[0] = "1";
+            }
+
+            const coefficient = parts[0];
             const variable = parts[1];
 
             const value = parseFloat(coefficient) * sign;
