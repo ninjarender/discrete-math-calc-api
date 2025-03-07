@@ -13,7 +13,8 @@ const CombinatoricsRoutes = require("./src/routes/combinatorics.routes");
 const SetsRoutes = require("./src/routes/sets.routes");
 const CalculateCacheMemoryParametersRoutes = require("./src/routes/calculate_cache_memory_parameters.routes");
 const SolveLinearEquationsRoutes = require("./src/routes/solve_linear_equations.routes");
-const vectorOperationsRoutes = require('./src/routes/vector_operations.routes');
+const vectorOperationsRoutes = require("./src/routes/vector_operations.routes");
+const MatrixOperationsRoutes = require("./src/routes/matrix_operations.routes");
 
 const swaggerOptions = {
   info: {
@@ -62,6 +63,7 @@ const init = async () => {
   SetsRoutes.initializRoutes(server);
   CalculateCacheMemoryParametersRoutes.initializRoutes(server);
   SolveLinearEquationsRoutes.initializRoutes(server);
+  MatrixOperationsRoutes.initializRoutes(server);
   server.route(vectorOperationsRoutes);
 
   await server.start();
