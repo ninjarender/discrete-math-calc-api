@@ -17,6 +17,11 @@ const singleMatrixRequestSchema = Joi.object({
   matrix: matrixSchema,
 });
 
+const singleMatrixWithScalarRequestSchema = Joi.object({
+  matrix: matrixSchema,
+  scalar: Joi.number().required(),
+});
+
 // Схема ответа для операций, возвращающих матрицу
 const matrixResponseSchema = Joi.object({
   result: matrixSchema,
@@ -30,6 +35,7 @@ const numberResponseSchema = Joi.object({
 module.exports = {
   twoMatricesRequestSchema,
   singleMatrixRequestSchema,
+  singleMatrixWithScalarRequestSchema,
   matrixResponseSchema,
   numberResponseSchema,
 };

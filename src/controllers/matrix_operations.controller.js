@@ -6,6 +6,7 @@ class MatrixOperationsController {
     this.add = this.add.bind(this);
     this.subtract = this.subtract.bind(this);
     this.multiply = this.multiply.bind(this);
+    this.multiplyByScalar = this.multiplyByScalar.bind(this);
     this.determinant = this.determinant.bind(this);
     this.adjoint = this.adjoint.bind(this);
     this.inverse = this.inverse.bind(this);
@@ -50,6 +51,20 @@ class MatrixOperationsController {
       return h
         .response({
           message: error.message || "Something went wrong",
+        })
+        .code(400);
+    }
+  }
+
+  multiplyByScalar(request, h) {
+    try {
+      const { matrix, scalar } = request.payload;
+      const result = this.matrixService.multiplyByScalar(matrix, scalar);
+      return h.response({ result }).code(200);
+    } catch (error) {
+      return h
+        .response({
+          message: error.message || "Something went wrong"
         })
         .code(400);
     }

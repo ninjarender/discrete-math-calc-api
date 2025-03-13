@@ -3,6 +3,7 @@ const MatrixOperationsController = require("../controllers/matrix_operations.con
 const {
   twoMatricesRequestSchema,
   singleMatrixRequestSchema,
+  singleMatrixWithScalarRequestSchema,
   matrixResponseSchema,
   numberResponseSchema,
 } = require("../validators/matrix_operations.validators");
@@ -57,6 +58,24 @@ class MatrixOperationsRoutes extends Routes {
         tags: ["api"],
         validate: {
           payload: twoMatricesRequestSchema,
+        },
+        response: {
+          status: {
+            200: matrixResponseSchema,
+            400: errorValidator,
+          },
+        },
+      },
+    },
+    {
+      method: "POST",
+      path: "/matrix/multiply-by-scalar",
+      handler: controller.multiplyByScalar,
+      options: {
+        description: "Multiply matrix by scalar",
+        tags: ["api"],
+        validate: {
+          payload: singleMatrixWithScalarRequestSchema,
         },
         response: {
           status: {

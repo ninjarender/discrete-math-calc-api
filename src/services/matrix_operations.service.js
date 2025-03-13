@@ -45,6 +45,10 @@ class MatrixOperationsService {
     return result;
   }
 
+  multiplyByScalar(matrix, scalar) {
+    return matrix.map((row) => row.map((val) => val * scalar));
+  }
+
   // Вычисление определителя матрицы
   determinant(matrix) {
     // Проверка на квадратную матрицу
