@@ -1,10 +1,10 @@
 const Joi = require("joi");
 
-// Схема для матрицы (двумерный массив чисел)
-const matrixSchema = Joi.array()
-  .items(Joi.array().items(Joi.number()).min(1).required())
-  .min(1)
-  .required();
+// Схема для вектора (одномерный массив чисел)
+const vectorSchema = Joi.array().items(Joi.number()).min(1).required();
+
+// Схема для матрицы (массив векторов)
+const matrixSchema = Joi.array().items(vectorSchema).min(1).required();
 
 // Схема для запроса с двумя матрицами (для операций +, -, *, /)
 const twoMatricesRequestSchema = Joi.object({
@@ -32,10 +32,18 @@ const numberResponseSchema = Joi.object({
   result: Joi.number(),
 });
 
+// Схема ответа для операций, возвращающих вектор
+const vectorResponseSchema = Joi.object({
+  result: vectorSchema,
+});
+
 module.exports = {
   twoMatricesRequestSchema,
   singleMatrixRequestSchema,
   singleMatrixWithScalarRequestSchema,
   matrixResponseSchema,
   numberResponseSchema,
+  vectorResponseSchema,
+  vectorSchema,
+  matrixSchema,
 };

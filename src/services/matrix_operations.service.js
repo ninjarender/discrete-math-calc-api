@@ -203,6 +203,95 @@ class MatrixOperationsService {
 
     return r;
   }
+
+  // Решение системы линейных уравнений методом Гаусса
+  solveLinearSystem(matrix) {
+    if (!matrix || matrix.length === 0 || matrix[0].length === 0) {
+      throw new Error("Invalid matrix");
+    }
+
+    // Проверяем, что количество уравнений равно количеству переменных
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+
+    if (cols !== rows + 1) {
+      throw new Error(
+        "For a system of linear equations, the matrix should have n rows and n+1 columns (augmented matrix)"
+      );
+    }
+
+    // Создаем копию матрицы, чтобы не изменять оригинал
+    const m = matrix.map((row) => [...row]);
+
+    // Прямой ход метода Гаусса
+    for (let i = 0; i < rows; i++) {
+      // Поиск максимального элемента в текущем столбце для частичной поворотной стратегии
+      let maxRow = i;
+      for (let j = i + 1; j < rows; j++) {
+        if (Math.abs(m[j][i]) > Math.abs(m[maxRow][i])) {
+          maxRow = j;
+        }
+      }
+
+      // Обмен строк, если нашли строку с большим элементом
+      if (maxRow !== i) {
+        [m[i], m[maxRow]] = [m[maxRow], m[i]];
+      }
+
+      // Если ведущий элемент близок к нулю, система может быть несовместной или иметь бесконечно много решений
+      if (Math.abs(m[i][i]) < 1e-10) {
+        throw new Error(
+          "The system has either no solution or infinitely many solutions"
+        );
+      }
+
+      // Нормализация текущей строки
+      const pivot = m[i][i];
+      for (let j = i; j < cols; j++) {
+        m[i][j] /= pivot;
+      }
+
+      // Обнуление элементов под ведущим элементом
+      for (let j = i + 1; j < rows; j++) {
+        const factor = m[j][i];
+        for (let k = i; k < cols; k++) {
+          m[j][k] -= factor * m[i][k];
+        }
+      }
+    }
+
+    // Обратный ход метода Гаусса
+    const solution = new Array(rows).fill(0);
+    for (let i = rows - 1; i >= 0; i--) {
+      solution[i] = m[i][cols - 1]; // Свободный член
+      for (let j = i + 1; j < rows; j++) {
+        solution[i] -= m[i][j] * solution[j];
+      }
+    }
+
+    // Очистка результатов от погрешностей вычислений
+    return this.cleanSolution(solution);
+  }
+
+  // Очистка результатов от погрешностей вычислений
+  cleanSolution(solution) {
+    return solution.map((value) => {
+      // Если число очень близко к нулю, возвращаем 0
+      // Увеличим порог для обнаружения малых чисел до 1e-9
+      if (Math.abs(value) < 1e-9) {
+        return 0;
+      }
+
+      // Если число очень близко к целому, округляем его
+      const roundedValue = Math.round(value);
+      if (Math.abs(value - roundedValue) < 1e-9) {
+        return roundedValue;
+      }
+
+      // Округляем до 6 знаков после запятой для более читаемых дробей
+      return parseFloat(value.toFixed(6));
+    });
+  }
 }
 
 module.exports = MatrixOperationsService;

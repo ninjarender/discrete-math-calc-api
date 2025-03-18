@@ -12,6 +12,7 @@ class MatrixOperationsController {
     this.inverse = this.inverse.bind(this);
     this.divide = this.divide.bind(this);
     this.rank = this.rank.bind(this);
+    this.solveLinearSystem = this.solveLinearSystem.bind(this);
   }
 
   add(request, h) {
@@ -64,7 +65,7 @@ class MatrixOperationsController {
     } catch (error) {
       return h
         .response({
-          message: error.message || "Something went wrong"
+          message: error.message || "Something went wrong",
         })
         .code(400);
     }
@@ -130,6 +131,20 @@ class MatrixOperationsController {
     try {
       const { matrix } = request.payload;
       const result = this.matrixService.rank(matrix);
+      return h.response({ result }).code(200);
+    } catch (error) {
+      return h
+        .response({
+          message: error.message || "Something went wrong",
+        })
+        .code(400);
+    }
+  }
+
+  solveLinearSystem(request, h) {
+    try {
+      const { matrix } = request.payload;
+      const result = this.matrixService.solveLinearSystem(matrix);
       return h.response({ result }).code(200);
     } catch (error) {
       return h

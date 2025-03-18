@@ -6,8 +6,10 @@ const {
   singleMatrixWithScalarRequestSchema,
   matrixResponseSchema,
   numberResponseSchema,
+  vectorResponseSchema,
 } = require("../validators/matrix_operations.validators");
 const { errorValidator } = require("../validators/static.validators");
+const Joi = require("joi");
 
 const controller = new MatrixOperationsController();
 
@@ -170,6 +172,25 @@ class MatrixOperationsRoutes extends Routes {
         response: {
           status: {
             200: numberResponseSchema,
+            400: errorValidator,
+          },
+        },
+      },
+    },
+    {
+      method: "POST",
+      path: "/matrix/solve-linear-system",
+      handler: controller.solveLinearSystem,
+      options: {
+        description:
+          "Solve system of linear equations using Gaussian elimination",
+        tags: ["api"],
+        validate: {
+          payload: singleMatrixRequestSchema,
+        },
+        response: {
+          status: {
+            200: vectorResponseSchema,
             400: errorValidator,
           },
         },
